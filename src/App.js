@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import './App.css'
 
-function App() {
+
+export default function App(){
+
+  const [quote, setQuote] = useState({})
+  useEffect(()=>{
+    fetch("https://type.fit/api/quotes")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data){
+        const randomIndex = Math.floor(Math.random()*1600)
+        setQuote(data[randomIndex])
+      })
+  },[])
+
+  const randomQuote = () => {
+    fetch("https://type.fit/api/quotes")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data){
+        const randomIndex = Math.floor(Math.random()*1600)
+        setQuote(data[randomIndex])
+      })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container text-center'>
+      <div class="card">
+        <div class="card-header">
+          Quote
+        </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <div id="quote-box">
+            <h1 id="text">"{quote.text}"</h1>
+            <br></br>
+            <footer id="author" class="blockquote-footer">Author: <cite title="Source Title">{quote.author ? quote.author : "Unknown"}</cite></footer>
+            <button id="new-quote" onClick={()=>randomQuote()} className="btn btn-success">NEW QUOTE</button>
+            <a id="tweet-quote" href="twitter.com/intent/tweet" target="_blank" className="btn btn-primary">Tweet</a>
+          </div>
+        </blockquote>
+      </div>
     </div>
-  );
+  </div>
+  )
 }
-
-export default App;
