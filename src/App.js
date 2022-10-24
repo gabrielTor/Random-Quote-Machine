@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 
-
 export default function App(){
 
   const [quote, setQuote] = useState({})
@@ -40,7 +39,12 @@ export default function App(){
             <br></br>
             <footer id="author" class="blockquote-footer">Author: <cite title="Source Title">{quote.author ? quote.author : "Unknown"}</cite></footer>
             <button id="new-quote" onClick={()=>randomQuote()} className="btn btn-success">NEW QUOTE</button>
-            <a id="tweet-quote" href="twitter.com/intent/tweet" target="_blank" className="btn btn-primary">Tweet</a>
+            &nbsp;
+            <a id="tweet-quote" 
+              href={`https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text="${quote.text}" Author: ${quote.author || 'Unknown'}`}
+              rel="noreferrer" target="_blank" className="btn btn-primary">
+                Tweet
+            </a>
           </div>
         </blockquote>
       </div>
